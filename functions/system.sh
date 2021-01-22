@@ -582,11 +582,28 @@ EOF
 function init_k8s () {
     # 安装docker-ce并启动
     yum -y install docker-ce-$DOCKERVERSION docker-ce-cli-$DOCKERVERSION
+    mkdir -p /etc/docker /data/docker
+    # 配置docker
+    # "exec-opts": ["native.cgroupdriver=systemd"]
+    cat <<EOF >  /etc/docker/daemon.json
+{
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "storage-driver": "overlay2",
+  "storage-opts": [
+    "overlay2.override_kernel_check=true"
+  ],
+  "graph": "/data/docker",
+  "registry-mirrors": ["https://registry.docker-cn.com","http://hub-mirror.c.163.com"]
+}
+EOF
     systemctl enable docker && systemctl restart docker
     docker version | tee /tmp/docker-version.log
     cat /tmp/docker-version.log | grep -w $DOCKERVERSION
     if [ $? -ne 0 ]; then
-        yellow_echo "docker版本未对应(可手动处理后选择[确认]继续)"
+        yellow_echo "docker版本未对应(可手动处理后选择[Y/N]继续)"
         user_verify_function
     fi
     echo '安装docker ce done! '>>${install_log}

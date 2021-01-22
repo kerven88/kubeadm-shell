@@ -11,9 +11,9 @@
 ##############################################################
 ## 集群安装和证书更新相关共同需要的参数设置
 # 主机名:IP，需要执行脚本前设置
-server0="master1:10.37.129.11"
-server1="master2:10.37.129.12"
-server2="master3:10.37.129.13"
+server0="master1:10.57.4.3"
+server1="master2:10.57.4.4"
+server2="master3:10.57.4.5"
 ##############################################################
 ## 集群安装相关参数设置
 # 是否离线安装集群，true为离线安装
@@ -25,14 +25,16 @@ INSTALL_SLB="true"
 # 是否脚本生成CA证书
 GENERATE_CA="false"
 # 定义Kubernetes信息
-KUBEVERSION="v1.19.2"
-DOCKERVERSION="19.03.13"
+KUBEVERSION="v1.18.3"
+DOCKERVERSION="19.03.12"
 KUBERNETES_CNI_VERSION=""
 IMAGE_REPOSITORY="registry.cn-hangzhou.aliyuncs.com/google_containers"
 # k8s master VIP（单节点为节点IP）
-k8s_master_vip="10.37.129.10"
+k8s_master_vip="10.57.4.3"
 # K8S网段
-podSubnet="10.244.0.0/16"
+podSubnet="10.200.0.0/16"
+serviceSubnet="10.100.0.0/16"
+dnsDomain="cluster.local"
 # kube-proxy转发模式，ipvs/iptables
 KUBE_PROXY_MODE="ipvs"
 # 可获取kubeadm join命令的节点IP
