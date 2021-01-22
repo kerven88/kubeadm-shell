@@ -49,6 +49,8 @@ IMAGE_REPOSITORY="registry.cn-hangzhou.aliyuncs.com/google_containers"
 k8s_master_vip="10.37.129.10"
 # K8S网段
 podSubnet="10.244.0.0/16"
+serviceSubnet="10.100.0.0/16"
+dnsDomain="cluster.local"
 # 可获取kubeadm join命令的节点IP
 k8s_join_ip=$k8s_master_vip
 ##############################################################
